@@ -13,7 +13,7 @@ class Server:
     def move(self):
         jsonbody = cherrypy.request.json
         body = json.loads(routemove)
-        print(route)
+        print(body)
 
 
 if __name__ == "__main__":
