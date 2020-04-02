@@ -11,8 +11,8 @@ class Server:
     @cherrypy.tools.json_in()
     @cherrypy.tools.json_out()
     def move(self):
-        routemove = cherrypy.request.json
-        route = json.loads(routemove)
+        jsonbody = cherrypy.request.json
+        body = json.loads(routemove)
         print(route)
 
 
