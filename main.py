@@ -4,7 +4,6 @@ import sys
 import socket
 from register import register
 
-
 register(3001)
 
 class Server:
@@ -12,10 +11,16 @@ class Server:
     @cherrypy.tools.json_in()
     @cherrypy.tools.json_out()
     def move(self):
-        jsonbody = cherrypy.request.json
-        body = json.loads(jsonbody)
+        # Deal with CORS
+        cherrypy.response.headers['Access-Control-Allow-Origin'] = '*'
+        cherrypy.response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        cherrypy.response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
+        if cherrypy.request.method == "OPTIONS":
+            return ''
+        
+        body = cherrypy.request.json
         print(body)
-
+        return {"move": 1}
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
