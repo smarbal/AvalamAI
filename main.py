@@ -4,6 +4,7 @@ import sys
 import socket
 from register import register
 
+
 register(3001)
 
 class Server:
@@ -12,7 +13,7 @@ class Server:
     @cherrypy.tools.json_out()
     def move(self):
         jsonbody = cherrypy.request.json
-        body = json.loads(routemove)
+        body = json.loads(jsonbody)
         print(body)
 
 
