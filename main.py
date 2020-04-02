@@ -20,7 +20,14 @@ class Server:
         
         body = cherrypy.request.json
         print(body)
-        return {"move": 1}
+        return {"move": {
+            
+        'from' : [0,3],
+        'to':    [1, 4] 
+        
+        },
+        "message" : "Bien le bonjour"
+        }
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
