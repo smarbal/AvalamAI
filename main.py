@@ -14,9 +14,7 @@ class Server:
         routemove = cherrypy.request.json
         route = json.loads(routemove)
         print(route)
-    @cherrypy.expose
-    def ping(self):
-        return "pong"
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
