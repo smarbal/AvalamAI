@@ -3,6 +3,7 @@ import cherrypy
 import sys
 import socket
 from register import register
+from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax
 
 register(3001)
 
@@ -28,6 +29,32 @@ class Server:
         },
         "message" : "Bien le bonjour"
         }
+    
+class Avalam(TwoPlayersGame):
+    def __init__(self, players):
+        self.players = players
+        self.nplayer = 1    #si joueur 1 commence, à àméliorer si joueur 2 commence, à voir avec le fichier json 
+        self.board = body['game'] 
+    
+    def possible_moves(self):
+        for line self.board : 
+            for tour in line : 
+                if tour != '' : 
+                    
+                    if othertour != '' : 
+                        if othertour != '':
+                            if len(tour) + len(othertour) <= 5 : 
+                                return othertour.extend(tour)
+                                return tour.clear()
+
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
