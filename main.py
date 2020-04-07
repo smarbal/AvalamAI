@@ -48,10 +48,12 @@ class Avalam(TwoPlayersGame):
                                 if c == d == 0 : 
                                     pass
                                 elif len(tower) + len(othertower) <= 5 : 
-                                    othertower.extend(tower)
-                                    tower.clear()
-                                    print(othertower)
-
+                                    return othertower.extend(tower)
+                                    return tower.clear()    #va falloir tout inclure en un return, donc trouver une manière d'expliciter un mouvement d'une tour à l'autre (faire comme le prof p-e ? sauf que string ), ou alors une liste comme dans le quick example 
+ # possiblement créer une liste vide dans possible, à la fin de la fonction faire append dans cette liste des coord, faire un return de toute la liste à la toute fin, en dehors des boucles                                    
+    def make_move(self,move) : 
+        othertower.extend(tower)
+        tower.clear()
 
 
 
