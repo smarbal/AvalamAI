@@ -51,12 +51,13 @@ class Avalam(TwoPlayersGame):
                                         if c == d == 0 : 
                                             pass
                                         elif len(tower) + len(othertower) <= 5 : 
-                                            moves.append([[a,b],[a+c,b+d]])      # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour.
+                                            moves.append([[a,b],[a+c,b+d]])      # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour. exemple de move : [[0, 3], [0, 4]]
         return moves             
  #va falloir tout inclure en un return, donc trouver une manière d'expliciter un mouvement d'une tour à l'autre (faire comme le prof p-e ? sauf que string ), ou alors une liste comme dans le quick example 
  # possiblement créer une liste vide dans possible, à la fin de la fonction faire append dans cette liste des coord, faire un return de toute la liste à la toute fin, en dehors des boucles                                    
     def make_move(self,move) : 
-        self.board[move[0][]]
+        self.board[move[1][0]][move[1][1]].extend(self.board[[move[0][0]][[move[0][1]]) #on verse ce qui se trouve dans la premiere tour dans la deuxieme
+        self.board[self.board[[move[0][0]][[move[0][1]]].clear() #on vide la première tour 
 
 
 
