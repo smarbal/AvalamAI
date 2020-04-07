@@ -42,22 +42,21 @@ class Avalam(TwoPlayersGame):
             for b in range(9) :
                 tower = self.board[a][b]
                 if tour != [] : 
-                    for c in range(-1,1) : 
-                        for d in range(-1,1) : 
-                            if a+c > 0 : 
-                                if b+d > 0 : 
+                    for c in range(-1,2) : 
+                        for d in range(-1,2) : 
+                            if a+c >= 0 and a+c < 9: 
+                                if b+d >= 0 and b+d <9: 
                                     othertower = self.board[a+c][b+d] 
                                     if othertower != [] :
                                         if c == d == 0 : 
                                             pass
                                         elif len(tower) + len(othertower) <= 5 : 
-                                            moves.append([[a,b],[a+c,a+d]])      # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour.
+                                            moves.append([[a,b],[a+c,b+d]])      # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour.
         return moves             
  #va falloir tout inclure en un return, donc trouver une manière d'expliciter un mouvement d'une tour à l'autre (faire comme le prof p-e ? sauf que string ), ou alors une liste comme dans le quick example 
  # possiblement créer une liste vide dans possible, à la fin de la fonction faire append dans cette liste des coord, faire un return de toute la liste à la toute fin, en dehors des boucles                                    
     def make_move(self,move) : 
-        othertower.extend(tower)
-        tower.clear()
+        self.board[move[0][]]
 
 
 
