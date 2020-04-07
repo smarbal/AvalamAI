@@ -37,15 +37,20 @@ class Avalam(TwoPlayersGame):
         self.board = body['game'] 
     
     def possible_moves(self):
-        for line self.board : 
-            for tour in line : 
-                if tour != '' : 
-                    
-                    if othertour != '' : 
-                        if othertour != '':
-                            if len(tour) + len(othertour) <= 5 : 
-                                return othertour.extend(tour)
-                                return tour.clear()
+        for a in range(9): 
+            for b in range(9) :
+                tower = self.board[a][b]
+                if tour != [] : 
+                    for c in range(-1,1) : 
+                        for d in range(-1,1) : 
+                            othertower = self.board[a+c][b+d] 
+                            if othertower != [] :
+                                if c == d == 0 : 
+                                    pass
+                                elif len(tower) + len(othertower) <= 5 : 
+                                    othertower.extend(tower)
+                                    tower.clear()
+                                    print(othertower)
 
 
 
