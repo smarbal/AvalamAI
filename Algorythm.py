@@ -1,48 +1,5 @@
-import json
-import cherrypy
-import sys
-import socket
-from register import register
 from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax
-
-
-register(3001)
-
-class Server:
-    @cherrypy.expose
-    @cherrypy.tools.json_in()
-    @cherrypy.tools.json_out()
-    def move(self):
-        # Deal with CORS
-        cherrypy.response.headers['Access-Control-Allow-Origin'] = '*'
-        cherrypy.response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-        cherrypy.response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
-        if cherrypy.request.method == "OPTIONS":
-            return ''
-        
-        body = cherrypy.request.json
-        
-        if len(body['moves']) < 6  :
-            ai_algo = Negamax(3)
-            ai_algo2 = Negamax(3)
-        
-        if len(body['moves']) > 6  :
-            ai_algo = Negamax(8)
-            ai_algo2 = Negamax(8)
-        game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
-        game.play(1)  
-        return {"move": {
-            
-        'from' : self.board[move[0][0]][move[0][1]],
-        'to':    self.board[move[1][0]][move[1][1]]
-        
-        },
-        "message" : "Bien le bonjour"
-        }
-    @cherrypy.expose
-    def ping(self):
-        return "pong"
-
+import cProfile
 
 class Avalam(TwoPlayersGame):
     def __init__(self, players):
@@ -120,15 +77,3 @@ class Avalam(TwoPlayersGame):
     def show(self) :
         print(self.board) 
 
-if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        port=int(sys.argv[1])
-    else:
-        port=8080
-    #cherrypy.quickstart(Server(),'', 'server.conf')
-    cherrypy.config.update({'server.socket_host': '0.0.0.0', 'server.socket_port': port})
-    cherrypy.quickstart(Server())
-
-    
-     #adapter pour renvoyer le move vers le serveur
-    #à tester, l'avantage c'est que comme on joue du tour par tour, on va pouvoir adapter Negamax()
