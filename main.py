@@ -59,19 +59,21 @@ class Server:
 
             def unmake_move(self, move):
                 i = 0
-                oldtower = []
+                cache = []
                 while i < move[2] :
-                    lastpiece = self.board[move[1][0]][move[1][1]].pop()
-                    self.board[move[0][0]][move[0][1]].append(lastpiece)
+                    lastpiece = self.board[move[1][0]][move[1][1]].pop()     #checker, peut etre une erreur dans ces lignes 
+                    cache.append(lastpiece)
                     i += 1
+                cache.reverse()
+                self.board[move[0][0]][move[0][1]].extend(cache)
                 
 
 
             def win(self):
-                playerpiece = body['players'].index('TonIA va faire Aie')
+                playerpiece = body['players'].index('Ton IA va faire Aie')     #il doit y avoir un souci ici
                 opponentlist = []  
                 playerlist = []
-                if self.thegameisover() is True :  
+                if self.thegameisover() is True :  #peut-être pas utile car empeche peut etre l'ordi de calculer si tours ok ou pas
                     for a in range(9): 
                         for b in range(9) :
                             tower = self.board[a][b]
@@ -81,8 +83,8 @@ class Server:
                                     playerlist.append(piece)
                                 else : 
                                     opponentlist.append(piece)
-                return len(playerlist) > len(opponentlist)
-                self.playerwon = len(playerlist) > len(opponentlist)
+                    return len(playerlist) > len(opponentlist)
+                    self.playerwon = len(playerlist) > len(opponentlist)
 
             def is_over(self) : 
                 return self.possible_moves() == []
@@ -104,10 +106,10 @@ class Server:
             ai_algo2 = Negamax(3)
         
         if len(body['moves']) > 25  :
-            ai_algo = Negamax(4)
-            ai_algo2 = Negamax(4)
+            ai_algo = Negamax(5)
+            ai_algo2 = Negamax(5)
         game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
-        game.play(1)
+        #game.play(1)
         movelist = game.get_move()
 
         return {"move": {
