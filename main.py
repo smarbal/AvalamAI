@@ -4,7 +4,7 @@ import sys
 import socket
 from register import register
 from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax
-
+from Algorythm import Avalam
 
 register(3001)
 
@@ -30,15 +30,17 @@ class Server:
             ai_algo = Negamax(8)
             ai_algo2 = Negamax(8)
         game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
-        game.play(1)  
+        game.play(1) 
+        movelist = [[5,6],[5,7]]
         return {"move": {
             
-        'from' : self.board[move[0][0]][move[0][1]],
-        'to':    self.board[move[1][0]][move[1][1]]
+        'from' : [5,6],
+        'to':    [5,7]
         
         },
         "message" : "Bien le bonjour"
         }
+        
     @cherrypy.expose
     def ping(self):
         return "pong"
