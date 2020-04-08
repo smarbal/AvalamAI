@@ -54,8 +54,10 @@ class Avalam(TwoPlayersGame):
                                         if c == d == 0 : 
                                             pass
                                         elif len(tower) + len(othertower) <= 5 : 
-                                            self.moves.append([[a,b],[a+c,b+d]])      # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour. exemple de move : [[0, 3], [0, 4]]
+                                            self.moves.append([[a,b],[a+c,b+d], len(tower)])  
+                                                # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour. exemple de move : [[0, 3], [0, 4]]
         return self.moves
+        print(self.moves)
 
 
 
@@ -63,8 +65,18 @@ class Avalam(TwoPlayersGame):
         self.board[move[1][0]][move[1][1]].extend(self.board[move[0][0]][move[0][1]]) #on verse ce qui se trouve dans la premiere tour dans la deuxieme
         self.board[move[0][0]][move[0][1]].clear() #on vide la première tour
 
+    def unmake_move(self, move):
+        i = 0
+        oldtower = []
+        while i < move[2] :
+            lastpiece = self.board[move[1][0]][move[1][1]].pop()
+            self.board[move[0][0]][move[0][1]].append(lastpiece)
+            i += 1
+        
+
+
     def win(self):
-        playerpiece = body['players'].index('Ton IA va faire Aie')
+        playerpiece = body['players'].index('LUR')
         opponentlist = []  
         playerlist = []
         if self.thegameisover() is True :  
@@ -92,11 +104,7 @@ class Avalam(TwoPlayersGame):
                 return 0 
         
     def show(self) :
-        print(self.board) 
-
-
-
-
+        print(self.board)  
 
 
 
