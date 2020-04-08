@@ -19,11 +19,11 @@ class Server:
             return ''
         
         body = cherrypy.request.json
-        print(body)
+        movelist = [[0,3],[1,4]]
         return {"move": {
             
-        'from' : [0,3],
-        'to':    [1, 4] 
+        'from' : movelist[0],
+        'to':    movelist[1] 
         
         },
         "message" : "Bien le bonjour"
