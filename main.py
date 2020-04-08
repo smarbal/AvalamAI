@@ -35,10 +35,12 @@ class Avalam(TwoPlayersGame):
         self.players = players
         self.nplayer = 1    #si joueur 1 commence, à àméliorer si joueur 2 commence, à voir avec le fichier json 
         self.board = body['game']
-     
-    
+        self.playerwon = False
+        self.thegameisover = False
+
+
     def possible_moves(self):
-        moves = []
+        self.moves = []
         for a in range(9): 
             for b in range(9) :
                 tower = self.board[a][b]
@@ -52,35 +54,45 @@ class Avalam(TwoPlayersGame):
                                         if c == d == 0 : 
                                             pass
                                         elif len(tower) + len(othertower) <= 5 : 
-                                            moves.append([[a,b],[a+c,b+d]])      # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour. exemple de move : [[0, 3], [0, 4]]
-        return moves             
- #va falloir tout inclure en un return, donc trouver une manière d'expliciter un mouvement d'une tour à l'autre (faire comme le prof p-e ? sauf que string ), ou alors une liste comme dans le quick example 
- # possiblement créer une liste vide dans possible, à la fin de la fonction faire append dans cette liste des coord, faire un return de toute la liste à la toute fin, en dehors des boucles                                    
-    def make_move(self,move) : 
-        self.board[move[1][0]][move[1][1]].extend(self.board[[move[0][0]][[move[0][1]]) #on verse ce qui se trouve dans la premiere tour dans la deuxieme
-        self.board[self.board[[move[0][0]][[move[0][1]]].clear() #on vide la première tour 
+                                            self.moves.append([[a,b],[a+c,b+d]])      # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour. exemple de move : [[0, 3], [0, 4]]
+        return self.moves
 
-    def win(self) :
+
+
+    def make_move(self,move) : 
+        self.board[move[1][0]][move[1][1]].extend(self.board[move[0][0]][move[0][1]]) #on verse ce qui se trouve dans la premiere tour dans la deuxieme
+        self.board[move[0][0]][move[0][1]].clear() #on vide la première tour
+
+    def win(self):
         playerpiece = body['players'].index('Ton IA va faire Aie')
-        playerlist = []   # mettre self ? 
-        opponentlist = []
-        if is_over() is True : 
+        opponentlist = []  
+        playerlist = []
+        if self.thegameisover() is True :  
             for a in range(9): 
                 for b in range(9) :
                     tower = self.board[a][b]
                     if tower != [] :
                         piece = tower.pop()
-                        if piece = playerpiece : 
+                        if piece == playerpiece : 
                             playerlist.append(piece)
                         else : 
                             opponentlist.append(piece)
         return len(playerlist) > len(opponentlist)
-            
+        self.playerwon = len(playerlist) > len(opponentlist)
 
     def is_over(self) : 
-        return self.possible_moves == []     
-
-
+        return self.possible_moves() == []
+        self.thegameisover = self.possible_moves() == []
+            
+    
+    def scoring(self):
+            if self.playerwon is True : 
+                return 100 
+            else : 
+                return 0 
+        
+    def show(self) :
+        print(self.board) 
 
 
 
