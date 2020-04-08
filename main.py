@@ -116,3 +116,14 @@ if __name__ == "__main__":
     #cherrypy.quickstart(Server(),'', 'server.conf')
     cherrypy.config.update({'server.socket_host': '0.0.0.0', 'server.socket_port': port})
     cherrypy.quickstart(Server())
+
+    if len(body['moves']) < 6  :
+        ai_algo = Negamax(3)
+        ai_algo2 = Negamax(3)
+    
+    if len(body['moves']) > 6  :
+        ai_algo = Negamax(8)
+        ai_algo2 = Negamax(8)
+    game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
+    game.play()   #adapter pour renvoyer le move vers le serveur
+    #à tester, l'avantage c'est que comme on joue du tour par tour, on va pouvoir adapter Negamax()
