@@ -3,7 +3,7 @@ import cherrypy
 import sys
 import socket
 from register import register
-from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax
+from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax, SSS
 from Algorythm import Avalam
 
 register(3001)
@@ -29,6 +29,14 @@ class Server:
                 self.board = body['game']
                 self.playerwon = False
                 self.thegameisover = False
+                self.player.piece = body['players'].index('Ton IA va faire Aie')
+                if self.player.piece == 0 :
+                    self.opponent.piece = 1
+                else : 
+                    self.opponent.piece == 0
+                self.player.list = []  
+                self.opponent.list = []
+    
 
 
             def possible_moves(self):
@@ -70,29 +78,28 @@ class Server:
 
 
             def win(self):
-                playerpiece = body['players'].index('Ton IA va faire Aie')     #il doit y avoir un souci ici
-                opponentlist = []  
-                playerlist = []
-                if self.thegameisover() is True :  #peut-être pas utile car empeche peut etre l'ordi de calculer si tours ok ou pas
+                if self.thegameisover is True : 
+                    self.player.list.clear()                        #sinon à chaque fois qu'il lance une possibilité, il rajoute dans la liste, qui a gardé les pions de la simulation précédente
+                    self.opponent.list.clear()
                     for a in range(9): 
                         for b in range(9) :
                             tower = self.board[a][b]
                             if tower != [] :
-                                piece = tower.pop()
-                                if piece == playerpiece : 
-                                    playerlist.append(piece)
+                                piece = tower[len(tower)-1]     #avec pop il retire à chaque unmake move sur la fin vu qu'il lance la fonction 
+                                if piece == self.player.piece : 
+                                
+                                    self.player.list.append(piece)
                                 else : 
-                                    opponentlist.append(piece)
-                    return len(playerlist) > len(opponentlist)
-                    self.playerwon = len(playerlist) > len(opponentlist)
+                                    self.opponent.list.append(piece)
+                    return len(self.player.list) > len(self.opponent.list)
 
             def is_over(self) : 
+                self.thegameisover = self.possible_moves() == []   #inverser l'ordre ?
                 return self.possible_moves() == []
-                self.thegameisover = self.possible_moves() == []
                     
             
             def scoring(self):
-                    if self.playerwon is True : 
+                    if self.win() is True : 
                         return 100 
                     else : 
                         return 0 
@@ -101,13 +108,15 @@ class Server:
                 print(self.board) 
                 
      
-        if len(body['moves']) <= 25  :
-            ai_algo = Negamax(3)
-            ai_algo2 = Negamax(3)
+        if len(body['moves']) <= 8  :
+            ai_algo = SSS(3)
+            ai_algo2 = SSS(3)
+            
+        if len(body['moves']) > 8  :
+            ai_algo = SSS(3)
+            ai_algo2 = SSS(3)
         
-        if len(body['moves']) > 25  :
-            ai_algo = Negamax(5)
-            ai_algo2 = Negamax(5)
+
         game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
         #game.play(1)
         movelist = game.get_move()
