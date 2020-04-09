@@ -93,6 +93,7 @@ class Server:
             
             def scoring(self):
                     #décricre ici (avec move ?) que si la derniere piece d'une tour complete est la notre ça vaut des points 
+                    #voir exemple awele, ajouter scores ailleurs et et définir que win = score1> score2
                     if self.playerwon is True : 
                         return 100 
                     else : 
