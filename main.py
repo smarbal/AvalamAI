@@ -76,7 +76,14 @@ class Server:
                 self.board[move[0][0]][move[0][1]].extend(cache)
                 
 
-
+            def wintower(self) : 
+                for a in range(9): 
+                    for b in range(9) :
+                        tower = self.board[a][b]
+                        if len(tower) == 5 :
+                            piece = tower[4]     
+                            if piece == self.player.piece : 
+                                return True 
             def win(self):
                 if self.thegameisover is True : 
                     self.player.list.clear()                        #sinon à chaque fois qu'il lance une possibilité, il rajoute dans la liste, qui a gardé les pions de la simulation précédente
@@ -99,10 +106,12 @@ class Server:
                     
             
             def scoring(self):
-                    if self.win() is True : 
-                        return 100 
-                    else : 
-                        return 0 
+                if self.wintower() is True : 
+                    return 10
+                if self.win() is True : 
+                    return 100 
+                else : 
+                    return 0 
                 
             def show(self) :
                 print(self.board) 
