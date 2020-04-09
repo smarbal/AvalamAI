@@ -84,6 +84,7 @@ class Server:
                             piece = tower[4]     
                             if piece == self.player.piece : 
                                 return True 
+            
             def win(self):
                 if self.thegameisover is True : 
                     self.player.list.clear()                        #sinon à chaque fois qu'il lance une possibilité, il rajoute dans la liste, qui a gardé les pions de la simulation précédente
@@ -108,7 +109,7 @@ class Server:
             def scoring(self):
                 if self.wintower() is True : 
                     return 10
-                if self.win() is True : 
+                elif self.win() is True : 
                     return 100 
                 else : 
                     return 0 
@@ -117,13 +118,13 @@ class Server:
                 print(self.board) 
                 
      
-        if len(body['moves']) <= 8  :
+        if len(body['moves']) <= 30 :
             ai_algo = SSS(3)
             ai_algo2 = SSS(3)
             
-        if len(body['moves']) > 8  :
-            ai_algo = SSS(3)
-            ai_algo2 = SSS(3)
+        if len(body['moves']) > 30 :
+            ai_algo = SSS(4)
+            ai_algo2 = SSS(4)
         
 
         game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
