@@ -4,7 +4,6 @@ import sys
 import socket
 from register import register
 from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax
-from Algorythm import Avalam
 
 register(3001)
 
