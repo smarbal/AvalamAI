@@ -7,4 +7,15 @@ main.py contient le code principal, c'est à dire le serveur de l'ia.
 register.py contient la fonction afin d'inscrire notre serveur au gestionnaire de jeu. Cette fonction est lancée dans main.py  
 
 ## Méthode choisie pour l'IA 
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+Nous avons utilisé [EasyAI](https://zulko.github.io/easyAI/) afin de mettre en place. Nous utilisons l'algorythme [SSS*](https://en.wikipedia.org/wiki/SSS*). Celui-ci est, grosso modo, une version d'un algorithme Negamax avec élagage Alpha-Beta, où l'élagage se fait de manière bien plus drastique.  
+
+## Lancement du programme 
+### AIGameRunner-master
+Il faut d'abord lancer le serveur accueillant la partie, celui-ci se retrouve dans [ce dossier] (https://github.com/Seb1903/AvalamAI/tree/master/AIGameRunner-master), en précisant le jeu joué.  
+La ligne de commande ressemblera donc à :
+PS C:\...\AIGameRunner-master> server.py avalam
+
+### AvalamAI
+Il faut ensuite lancer le serveur "joueur". Il faut pour cela lancer main.py en donnant le port de communication ; ce dernier peut-être au choix, l'inscription s'adapte. 
+La ligne de commande ressemblera donc à : 
+PS C:\...\AvalamAI> main.py 1234
