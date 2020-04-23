@@ -14,12 +14,12 @@ Nous avons utilisé [EasyAI](https://zulko.github.io/easyAI/) afin de mettre en 
 ### AIGameRunner-master
 Il faut d'abord lancer le serveur accueillant la partie, celui-ci se retrouve dans [ce dossier](https://github.com/Seb1903/AvalamAI/tree/master/AIGameRunner-master), en précisant le jeu joué.  
 La ligne de commande ressemblera donc à :  
-'PS C:\...\AIGameRunner-master> server.py avalam'
+`PS C:\...\AIGameRunner-master> server.py avalam`
 
 ### AvalamAI
 Il faut ensuite lancer le serveur "joueur". 
 Il faut pour cela lancer *main.py* en donnant le port de communication ; ce dernier peut-être au choix, l'inscription s'adapte. 
 La ligne de commande ressemblera donc à :  
-'PS C:\...\AvalamAI> main.py 1234'
+`PS C:\...\AvalamAI> main.py 1234`
 
 Il suffit ensuite d'ouvrir http://localhost:3000/ dans un navigateur afin d'observer la partie.
