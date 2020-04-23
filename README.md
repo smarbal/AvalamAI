@@ -21,3 +21,5 @@ Il faut ensuite lancer le serveur "joueur".
 Il faut pour cela lancer *main.py* en donnant le port de communication ; ce dernier peut-être au choix, l'inscription s'adapte. 
 La ligne de commande ressemblera donc à : 
 PS C:\...\AvalamAI> main.py 1234
+
+Il suffit ensuite d'ouvrir http://localhost:3000/ dans un navigateur afin d'observer la partie.
