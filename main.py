@@ -2,9 +2,10 @@ import json
 import cherrypy
 import sys
 import socket
+import c_possible_moves
 from register import register
 from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax, SSS
-from Algorythm import Avalam
+
 
 register(3001)
 
@@ -40,24 +41,10 @@ class Server:
 
 
             def possible_moves(self):
-                self.moves = []
-                for a in range(9): 
-                    for b in range(9) :
-                        tower = self.board[a][b]
-                        if tower != [] : 
-                            for c in range(-1,2) : 
-                                for d in range(-1,2) : 
-                                    if a+c >= 0 and a+c < 9: 
-                                        if b+d >= 0 and b+d <9: 
-                                            othertower = self.board[a+c][b+d] 
-                                            if othertower != [] :
-                                                if c == d == 0 : 
-                                                    pass
-                                                elif len(tower) + len(othertower) <= 5 : 
-                                                    self.moves.append([[a,b],[a+c,b+d], len(tower)])  
-                                                        # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour. exemple de move : [[0, 3], [0, 4]]
-                return self.moves
-                print(self.moves)
+                moves = c_possible_moves.possible_moves(self.board)
+                self.thegameisover = moves == [] 
+                return moves
+
 
 
 
@@ -102,8 +89,8 @@ class Server:
                     return len(self.player.list) > len(self.opponent.list)
 
             def is_over(self) : 
-                self.thegameisover = self.possible_moves() == []   #inverser l'ordre ?
-                return self.possible_moves() == []
+                return self.thegameisover
+
                     
             
             def scoring(self):
@@ -118,14 +105,18 @@ class Server:
                 print(self.board) 
                 
      
-        if len(body['moves']) <= 30 :
+        if len(body['moves']) <= 25 :
             ai_algo = SSS(3)
             ai_algo2 = SSS(3)
             
-        if len(body['moves']) > 30 :
-            ai_algo = SSS(4)
-            ai_algo2 = SSS(4)
+        if len(body['moves']) > 25 and len(body['moves']) <= 40 :
+            ai_algo = SSS(6)
+            ai_algo2 = SSS(3)
         
+        if len(body['moves']) > 40 and len(body['moves']) <= 60 :
+            ai_algo = SSS(8)
+            ai_algo2 = SSS(3)
+
 
         game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
         #game.play(1)
