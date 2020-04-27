@@ -3,6 +3,7 @@ import cherrypy
 import sys
 import socket
 import c_possible_moves
+import c_win_tower 
 from register import register
 from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax, SSS
 
@@ -64,13 +65,8 @@ class Server:
                 
 
             def wintower(self) : 
-                for a in range(9): 
-                    for b in range(9) :
-                        tower = self.board[a][b]
-                        if len(tower) == 5 :
-                            piece = tower[4]     
-                            if piece == self.player.piece : 
-                                return True 
+                return c_win_tower.wintower(self.board, self.player.piece)
+
             
             def win(self):
                 if self.thegameisover is True : 
@@ -89,13 +85,12 @@ class Server:
                     return len(self.player.list) > len(self.opponent.list)
 
             def is_over(self) : 
-                return self.thegameisover
-
+                return self.possible_moves() == []
                     
             
             def scoring(self):
-                if self.wintower() is True : 
-                    return 10
+                if self.wintower() != 0 : 
+                    return 5*self.wintower()
                 elif self.win() is True : 
                     return 100 
                 else : 
@@ -109,12 +104,12 @@ class Server:
             ai_algo = SSS(3)
             ai_algo2 = SSS(3)
             
-        if len(body['moves']) > 25 and len(body['moves']) <= 40 :
-            ai_algo = SSS(6)
+        elif 25 < len(body['moves']) <= 40 :
+            ai_algo = SSS(5)
             ai_algo2 = SSS(3)
         
-        if len(body['moves']) > 40 and len(body['moves']) <= 60 :
-            ai_algo = SSS(8)
+        elif  40 < len(body['moves']) <= 100  :
+            ai_algo = SSS(6)
             ai_algo2 = SSS(3)
 
 
