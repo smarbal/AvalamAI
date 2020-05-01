@@ -4,6 +4,7 @@ import sys
 import socket
 import c_possible_moves
 import c_win_tower 
+import c_is_alone
 from register import register
 from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax, SSS
 
@@ -65,9 +66,10 @@ class Server:
                 
 
             def wintower(self) : 
-                return c_win_tower.wintower(self.board, self.player.piece)
+                return c_win_tower.wintower(self.board, self.player.piece)  + c_is_alone.is_alone(self.board, self.player.piece)
 
-            
+
+
             def win(self):
                 if self.thegameisover is True : 
                     self.player.list.clear()                        #sinon à chaque fois qu'il lance une possibilité, il rajoute dans la liste, qui a gardé les pions de la simulation précédente
@@ -76,9 +78,8 @@ class Server:
                         for b in range(9) :
                             tower = self.board[a][b]
                             if tower != [] :
-                                piece = tower[len(tower)-1]     #avec pop il retire à chaque unmake move sur la fin vu qu'il lance la fonction 
+                                piece = tower[-1]     #avec pop il retire à chaque unmake move sur la fin vu qu'il lance la fonction 
                                 if piece == self.player.piece : 
-                                
                                     self.player.list.append(piece)
                                 else : 
                                     self.opponent.list.append(piece)
@@ -90,7 +91,7 @@ class Server:
             
             def scoring(self):
                 if self.wintower() != 0 : 
-                    return 5*self.wintower()
+                    return 3*self.wintower()
                 elif self.win() is True : 
                     return 100 
                 else : 
