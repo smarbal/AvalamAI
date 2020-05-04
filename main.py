@@ -36,7 +36,7 @@ class Server:
                 if self.player.piece == 0 :
                     self.opponent.piece = 1
                 else : 
-                    self.opponent.piece == 0
+                    self.opponent.piece = 0
                 self.player.list = []  
                 self.opponent.list = []
     
@@ -105,11 +105,11 @@ class Server:
             ai_algo = SSS(3)
             ai_algo2 = SSS(3)
             
-        elif 25 < len(body['moves']) <= 40 :
+        if 25 < len(body['moves']) <= 40 :
             ai_algo = SSS(5)
             ai_algo2 = SSS(3)
         
-        elif  40 < len(body['moves']) <= 100  :
+        if  40 < len(body['moves']) <= 120  :
             ai_algo = SSS(6)
             ai_algo2 = SSS(3)
 
