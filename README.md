@@ -15,7 +15,7 @@ Nous avons utilisé [EasyAI](https://zulko.github.io/easyAI/) afin de mettre en 
 
 ## Lancement du programme 
 ###  Installation du module Cython 
-Nous utilisons la librairie Cython afin de d'accélerer notre code. En effet, celui-ci s'execute 6x plus rapidement lorsque nous avons "Cythonisé" nos fonctions les plus gourmandes. 
+Nous utilisons la librairie [Cython](https://cython.org/) afin d'accélerer notre code. En effet, celui-ci s'excute 6x plus rapidement lorsque nous avons "Cythonisé" nos fonctions les plus gourmandes. 
 Il faut dans un premier temps installer Cython :  
 `> pip install cython`  
 Si ce n'est pas déjà le cas, il faudra ensuite installer les Buildtools C++ pour Visual Studio, [ici](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16),  afin de pouvoir "construire" les fonctions nécesssaires. Ces fichiers sont quand même dans le répositoire, mais il semble, pour une raison obscure, qu'une machine téléchargeant les fichiers doit reconstruire ceux-ci. 
