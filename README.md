@@ -10,7 +10,21 @@ par Sebastien Martinez Balbuena et Edouard de Schiettere de Lophem
 ## Méthode choisie pour l'IA 
 Nous avons utilisé [EasyAI](https://zulko.github.io/easyAI/) afin de mettre en place. Nous utilisons l'algorythme [SSS*](https://en.wikipedia.org/wiki/SSS*). Celui-ci est, grosso modo, une version d'un algorithme Negamax avec élagage Alpha-Beta, où l'élagage se fait de manière bien plus drastique.  
 
+
+
+
 ## Lancement du programme 
+###  Installation du module Cython 
+Nous utilisons la librairie Cython afin de d'accélerer notre code. En effet, celui-ci s'execute 6x plus rapidement lorsque nous avons "Cythonisé" nos fonctions les plus gourmandes. 
+Il faut dans un premier temps installer Cython :  
+`> pip install cython`  
+Si ce n'est pas déjà le cas, il faudra ensuite installer les Buildtools C++ pour Visual Studio, [ici](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16),  afin de pouvoir "construire" les fonctions nécesssaires. Ces fichiers sont quand même dans le répositoire, mais il semble, pour une raison obscure, qu'une machine téléchargeant les fichiers doit reconstruire ceux-ci. 
+
+Enfin, il faut lancer la ligne de commande qui installera les modules Cython : 
+`> python setup.py install`
+
+Si l'installation pose trop de soucis, une branche *No_Cython* sera disponible dans la partie Branches de ce repositoire où l'utilisation de Cython est évitée, mais où l'algorithme est forcément moins performant. 
+
 ### AIGameRunner-master
 Il faut d'abord lancer le serveur accueillant la partie, celui-ci se retrouve dans [ce dossier](https://github.com/Seb1903/AvalamAI/tree/master/AIGameRunner-master), en précisant le jeu joué.  
 La ligne de commande ressemblera donc à :  
@@ -23,3 +37,5 @@ La ligne de commande ressemblera donc à :
 `PS C:\...\AvalamAI>python main.py 1234`
 
 Il suffit ensuite d'ouvrir http://localhost:3000/ dans un navigateur afin d'observer la partie.
+
+
