@@ -31,7 +31,7 @@ class Server:
                 self.board = body['game']
                 self.playerwon = False
                 self.thegameisover = False
-                self.player.piece = body['players'].index('Ton IA va faire Aie')
+                self.player.piece = body['players'].index('2 algos 1 cup')
                 if self.player.piece == 0 :
                     self.opponent.piece = 1
                 else : 
