@@ -4,7 +4,6 @@ import sys
 import socket
 from register import register
 from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax, SSS
-from Algorythm import Avalam
 
 register(3001)
 
@@ -33,7 +32,7 @@ class Server:
                 if self.player.piece == 0 :
                     self.opponent.piece = 1
                 else : 
-                    self.opponent.piece == 0
+                    self.opponent.piece = 0
                 self.player.list = []  
                 self.opponent.list = []
     
