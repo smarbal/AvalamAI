@@ -10,7 +10,7 @@ par Sebastien Martinez Balbuena et Edouard de Schiettere de Lophem
 
 ## Méthode choisie pour l'IA 
 Nous avons utilisé [EasyAI](https://zulko.github.io/easyAI/) afin de mettre en place l'algorithme [SSS*](https://en.wikipedia.org/wiki/SSS*). Celui-ci est, grossièrement, une version d'un algorithme Negamax avec élagage Alpha-Beta, où l'élagage se fait de manière bien plus drastique.    
-Cet algorithme construit un arbre et l'explore de manière best-first, en explorant les noeuds les plus prometteurs d'abord, au contraire d'un algorithme alpha-bêta qui agit de manière depth-first. La première solution trouvée doit donc, à priori être la meilleure, ce qui le rend dans braucoup de cas, plus performant que l'algorithme alpha-bêta, si ce dernier n'utilise pas de tables de transposition, chose qui était compliquée à faire dans le cas du jeu *Avalam*.  
+Cet algorithme construit un arbre et l'explore de manière best-first, en explorant les noeuds les plus prometteurs d'abord, au contraire d'un algorithme alpha-bêta qui agit de manière depth-first. La première solution trouvée doit donc, à priori être la meilleure, ce qui le rend dans beaucoup de cas, plus performant que l'algorithme alpha-bêta, si ce dernier n'utilise pas de tables de transposition, chose qui était comliquée à faire dans le cas du jeu *Avalam*.  
   
 De manière pratique, il va donc, par une évaluation heuristique, donner une valeur à chaque noeud et seulement ensuite, il explorera chacun des noeuds par ordre d'importance.
 Dans notre cas, en raison des nombreux coups possibles dans le jeu Avalam, l'algorithme est très gourmand dès que l'on passe une profondeur de 3 (19s pour SSS(4) avec Cython, 165s sans Cython, pour le premier coup, avec 20 632 056 moves simulés<sup>1</sup>).  
@@ -29,10 +29,10 @@ Néanmoins, tout est toujours perfectible, il faut bien s'arrêter à un moment 
 
 ## Lancement du programme 
 ###  Installation du module Cython 
-Nous utilisons la librairie [Cython](https://cython.org/) afin d'accélerer notre code. En effet, celui-ci s'excute 6x plus rapidement lorsque nous avons "Cythonisé" nos fonctions les plus gourmandes. 
+Nous utilisons la librairie [Cython](https://cython.org/) afin d'accélerer notre code. En effet, celui-ci s'exécute 6x plus rapidement lorsque nous avons "Cythonisé" nos fonctions les plus gourmandes. 
 Il faut dans un premier temps installer Cython :  
 `> pip install cython`  
-Si ce n'est pas déjà le cas, il faudra ensuite installer les Buildtools C++ pour Visual Studio, [ici](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16),  afin de pouvoir "construire" les fichiers/fonctions nécesssaires. Même lorsque ces fichiers étaient dans le répositoire, pour une raison obscure, une machine téléchargeant ces fichiers devait reconstruire ceux-ci. 
+Si ce n'est pas déjà fait, il faudra ensuite installer les Buildtools C++ pour Visual Studio, [ici](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16),  afin de pouvoir "construire" les fichiers/fonctions nécesssaires. Même lorsque ces fichiers étaient dans le répositoire, pour une raison obscure, une machine téléchargeant ces fichiers devait reconstruire ceux-ci. 
 
 Enfin, il faut lancer la ligne de commande qui installera les modules Cython : 
 `> python setup.py install`
