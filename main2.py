@@ -31,7 +31,7 @@ class Server:
                 self.board = body['game']
                 self.playerwon = False
                 self.thegameisover = False
-                self.player.piece = body['players'].index('2 algos 1 cup')
+                self.player.piece = body['players'].index('TEST')
                 if self.player.piece == 0 :
                     self.opponent.piece = 1
                 else : 
@@ -100,17 +100,11 @@ class Server:
                 print(self.board) 
                 
      
-        if len(body['moves']) <= 25 :
-            ai_algo = SSS(3)
-            ai_algo2 = SSS(3)
+    
+        ai_algo = Negamax(3)
+        ai_algo2 = Negamax(3)
             
-        if 25 < len(body['moves']) <= 40 :
-            ai_algo = SSS(5)
-            ai_algo2 = SSS(3)
-        
-        if  40 < len(body['moves']) <= 120  :
-            ai_algo = SSS(6)
-            ai_algo2 = SSS(3)
+
 
 
         game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
@@ -137,7 +131,7 @@ class Server:
         'to':    movelist[1]
         
         },
-        "message" : messagelist[random.randint(0, len(messagelist) -1)]
+        "message" : messagelist[random.randint(0, len(messagelist)-1)]
         }
         
     @cherrypy.expose
@@ -156,5 +150,3 @@ if __name__ == "__main__":
         port=8080
     cherrypy.config.update({'server.socket_host': '0.0.0.0', 'server.socket_port': port})
     cherrypy.quickstart(Server())
-
-    
