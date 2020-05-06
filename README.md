@@ -21,9 +21,9 @@ Cette faible profondeur nous a handicapés car l'algorithme n'arrive à atteindr
 Pour résumer, en début de partie notre algorithme préfère capturer des tours assez rapidement quitte à ce que ce soit moins bénéfique sur le long terme, tandis que lorsque des states où le jeu se termine sont atteignables, l'algorithme va viser le fait de "gagner" (dont le scoring est plus grand que wintower()) et donc aura plus une vision long-terme (ce qui est peu utile en fin de partie, on le concède).
 
 Des pistes intéressantes à explorer pour optimiser notre algorithme seraient de : 
-+ négliger une moitié de plateau au début de partie (empiriquement, nos différentes IA testées ont toujours joué la première vingtaine de coups dans la même moitié), cela permettrait de gagner énormément de temps sans perte de performances, à moins de faire face à un joueur humain jouant un coup sous-optimal dans cette seconde partie de plateau.
-+ d'utiliser des manières plus performantes d'exécuter make_move() et unmake_move() car ces fonctions prennent à elles deux plus d'1/3 du temps nécessaire à l'execution lorsque la profondeur est relativement grande.
-Néanmoins tout est toujours perfectible, il faut bien s'arrêter à un moment et nous sommes satisfaits du fonctionnement de l'algorithme.
++ Négliger une moitié de plateau au début de partie (empiriquement, nos différentes IA testées ont toujours joué la première vingtaine de coups dans la même moitié); cela permettrait de gagner énormément de temps sans perte de performances, à moins de faire face à un joueur humain jouant un coup sous-optimal dans cette seconde partie de plateau.
++ Utiliser des manières plus performantes d'exécuter make_move() et unmake_move() car ces fonctions prennent à elles deux plus d'1/3 du temps nécessaire à l'exécution lorsque la profondeur est relativement grande.
+Néanmoins, tout est toujours perfectible, il faut bien s'arrêter à un moment et nous sommes satisfaits du fonctionnement de l'algorithme.
 
 <sup>1</sup>Analysé grâce à [CProfile](https://docs.python.org/2/library/profile.html)  
 
