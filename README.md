@@ -35,7 +35,7 @@ Il faut dans un premier temps installer Cython :
 `> pip install cython`  
 Si ce n'est pas déjà fait, il faudra ensuite installer les Buildtools C++ pour Visual Studio, [ici](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16),  afin de pouvoir "construire" les fichiers/fonctions nécesssaires. Même lorsque ces fichiers étaient dans le répositoire, pour une raison obscure, une machine téléchargeant ces fichiers devait reconstruire ceux-ci. 
 
-Enfin, il faut lancer la ligne de commande qui installera les modules Cython : 
+Enfin, il faut lancer la ligne de commande qui construira les fichiers .c via Cython :  
 `> python setup.py install`
 
 Si l'installation pose trop de soucis, une branche *No_Cython* sera disponible dans la partie Branches de ce repositoire où l'utilisation de Cython est évitée, mais où l'algorithme est forcément moins performant. 
