@@ -52,4 +52,4 @@ La ligne de commande ressemblera donc à :
 
 Il suffit ensuite d'ouvrir http://localhost:3000/ dans un navigateur afin d'observer la partie.
 
-
+NB : Si vous souhaitez lancer une partie pour tester l'IA, la branche *testing-br* permettra de vous faciliter la tâche dans le lancement de 2 IA, puisqu'elle permettra de gérer l'inscription de 2 IA directement à partir de ce repositoire.
