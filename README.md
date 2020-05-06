@@ -23,6 +23,7 @@ Pour résumer, en début de partie notre algorithme préfère capturer des tours
 Des pistes intéressantes à explorer pour optimiser notre algorithme seraient de : 
 + Négliger une moitié de plateau au début de partie (empiriquement, nos différentes IA testées ont toujours joué la première vingtaine de coups dans la même moitié); cela permettrait de gagner énormément de temps sans perte de performances, à moins de faire face à un joueur humain jouant un coup sous-optimal dans cette seconde partie de plateau.
 + Utiliser des manières plus performantes d'exécuter make_move() et unmake_move() car ces fonctions prennent à elles deux plus d'1/3 du temps nécessaire à l'exécution lorsque la profondeur est relativement grande.  
+  
 Néanmoins, tout est toujours perfectible, il faut bien s'arrêter à un moment et nous sommes satisfaits du fonctionnement de l'algorithme.
 
 <sup>1</sup>Analysé grâce à [CProfile](https://docs.python.org/2/library/profile.html)  
