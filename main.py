@@ -2,9 +2,11 @@ import json
 import cherrypy
 import sys
 import socket
+import c_possible_moves
+import c_win_tower 
+import c_is_alone
 from register import register
 from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax, SSS
-from Algorythm import Avalam
 
 register(3001)
 
@@ -33,31 +35,17 @@ class Server:
                 if self.player.piece == 0 :
                     self.opponent.piece = 1
                 else : 
-                    self.opponent.piece == 0
+                    self.opponent.piece = 0
                 self.player.list = []  
                 self.opponent.list = []
     
 
 
             def possible_moves(self):
-                self.moves = []
-                for a in range(9): 
-                    for b in range(9) :
-                        tower = self.board[a][b]
-                        if tower != [] : 
-                            for c in range(-1,2) : 
-                                for d in range(-1,2) : 
-                                    if a+c >= 0 and a+c < 9: 
-                                        if b+d >= 0 and b+d <9: 
-                                            othertower = self.board[a+c][b+d] 
-                                            if othertower != [] :
-                                                if c == d == 0 : 
-                                                    pass
-                                                elif len(tower) + len(othertower) <= 5 : 
-                                                    self.moves.append([[a,b],[a+c,b+d], len(tower)])  
-                                                        # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour. exemple de move : [[0, 3], [0, 4]]
-                return self.moves
-                print(self.moves)
+                moves = c_possible_moves.possible_moves(self.board)
+                self.thegameisover = moves == [] 
+                return moves
+
 
 
 
@@ -77,14 +65,10 @@ class Server:
                 
 
             def wintower(self) : 
-                for a in range(9): 
-                    for b in range(9) :
-                        tower = self.board[a][b]
-                        if len(tower) == 5 :
-                            piece = tower[4]     
-                            if piece == self.player.piece : 
-                                return True 
-            
+                return c_win_tower.wintower(self.board, self.player.piece)  + c_is_alone.is_alone(self.board, self.player.piece)
+
+
+
             def win(self):
                 if self.thegameisover is True : 
                     self.player.list.clear()                        #sinon à chaque fois qu'il lance une possibilité, il rajoute dans la liste, qui a gardé les pions de la simulation précédente
@@ -93,22 +77,20 @@ class Server:
                         for b in range(9) :
                             tower = self.board[a][b]
                             if tower != [] :
-                                piece = tower[len(tower)-1]     #avec pop il retire à chaque unmake move sur la fin vu qu'il lance la fonction 
+                                piece = tower[-1]     #avec pop il retire à chaque unmake move sur la fin vu qu'il lance la fonction 
                                 if piece == self.player.piece : 
-                                
                                     self.player.list.append(piece)
                                 else : 
                                     self.opponent.list.append(piece)
                     return len(self.player.list) > len(self.opponent.list)
 
             def is_over(self) : 
-                self.thegameisover = self.possible_moves() == []   #inverser l'ordre ?
                 return self.possible_moves() == []
                     
             
             def scoring(self):
-                if self.wintower() is True : 
-                    return 10
+                if self.wintower() != 0 : 
+                    return 3*self.wintower()
                 elif self.win() is True : 
                     return 100 
                 else : 
@@ -118,14 +100,18 @@ class Server:
                 print(self.board) 
                 
      
-        if len(body['moves']) <= 30 :
+        if len(body['moves']) <= 25 :
             ai_algo = SSS(3)
             ai_algo2 = SSS(3)
             
-        if len(body['moves']) > 30 :
-            ai_algo = SSS(4)
-            ai_algo2 = SSS(4)
+        if 25 < len(body['moves']) <= 40 :
+            ai_algo = SSS(5)
+            ai_algo2 = SSS(3)
         
+        if  40 < len(body['moves']) <= 120  :
+            ai_algo = SSS(6)
+            ai_algo2 = SSS(3)
+
 
         game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
         #game.play(1)

@@ -19,3 +19,4 @@ def register(variableport) :
         while total < len(msg):
             sent = s.send(msg[total:])
             total += sent
+    
