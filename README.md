@@ -26,7 +26,7 @@ Des pistes intéressantes à explorer pour optimiser notre algorithme seraient d
   
 Néanmoins, tout est toujours perfectible, il faut bien s'arrêter à un moment et nous sommes satisfaits du fonctionnement de l'algorithme.
 
-<sup>1</sup>Analysé grâce à [CProfile](https://docs.python.org/2/library/profile.html)  
+<sup>1</sup>Analysé grâce à [cProfile](https://docs.python.org/2/library/profile.html)  
 
 ## Lancement du programme 
 ###  Installation du module Cython 
