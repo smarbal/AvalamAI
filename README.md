@@ -8,7 +8,7 @@ par Sebastien Martinez Balbuena et Edouard de Schiettere de Lophem
 + *register.py* contient la fonction afin d'inscrire notre serveur au gestionnaire de jeu. Cette fonction est lancée dans main.py  
 
 ## Méthode choisie pour l'IA 
-Nous avons utilisé [EasyAI](https://zulko.github.io/easyAI/) afin de mettre en place. Nous utilisons l'algorythme [SSS*](https://en.wikipedia.org/wiki/SSS*). Celui-ci est, grosso modo, une version d'un algorithme Negamax avec élagage Alpha-Beta, où l'élagage se fait de manière bien plus drastique.  
+Nous avons utilisé [EasyAI](https://zulko.github.io/easyAI/) afin de mettre en place l'algorithme [SSS*](https://en.wikipedia.org/wiki/SSS*). Celui-ci est, grosso modo, une version d'un algorithme Negamax avec élagage Alpha-Beta, où l'élagage se fait de manière bien plus drastique.  
 
 
 
@@ -32,9 +32,11 @@ La ligne de commande ressemblera donc à :
 
 ### AvalamAI
 Il faut ensuite lancer le serveur "joueur". 
-Il faut pour cela lancer *main.py* en donnant le port de communication ; ce dernier peut-être au choix, l'inscription s'adapte. 
+Il faut pour cela lancer *main.py* en donnant le port de communication ; ce dernier peut-être au choix tant qu'il est **< 5000**, l'inscription s'adapte. 
 La ligne de commande ressemblera donc à :  
 `PS C:\...\AvalamAI>python main.py 1234`
+**ici, tout est fait pour lancer une deuxième IA. Pour cela lancez une commande analogue à celle ci-dessus, en assignant un port >5000.**
+`PS C:\...\AvalamAI>python main2.py 5678`
 
 Il suffit ensuite d'ouvrir http://localhost:3000/ dans un navigateur afin d'observer la partie.
 
