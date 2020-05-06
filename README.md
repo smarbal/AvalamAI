@@ -6,12 +6,15 @@ par Sebastien Martinez Balbuena et Edouard de Schiettere de Lophem
 + *inscription.json* contient les informations concernant nos matricules, noms et port utilisés.  
 + *main.py* contient le code principal, c'est à dire le serveur de l'ia.   
 + *register.py* contient la fonction afin d'inscrire notre serveur au gestionnaire de jeu. Cette fonction est lancée dans main.py  
++ Les fichiers *.pyx* sont des fichiers contenant des fonctions Python qui prennent beacoup de temps à l'exécution, à cause de nombreuses boucles for. Comme le language C gère ce genre de cas de manière bien plus optimale, ces fichiers seront "Cythonisés". 
 
 ## Méthode choisie pour l'IA 
-Nous avons utilisé [EasyAI](https://zulko.github.io/easyAI/) afin de mettre en place. Nous utilisons l'algorythme [SSS*](https://en.wikipedia.org/wiki/SSS*). Celui-ci est, grosso modo, une version d'un algorithme Negamax avec élagage Alpha-Beta, où l'élagage se fait de manière bien plus drastique.  
-
-
-
+Nous avons utilisé [EasyAI](https://zulko.github.io/easyAI/) afin de mettre en place l'algorythme [SSS*](https://en.wikipedia.org/wiki/SSS*). Celui-ci est, grossièrement, une version d'un algorithme Negamax avec élagage Alpha-Beta, où l'élagage se fait de manière bien plus drastique.    
+Cet algorithme construit un arbre et l'explore de manière best-first, ene explorant les noeuds les plus prometteurs d'abord, au contraire d'un algorithme alpha-bêta qui agit de manière depth-first. La première solution trouvée doit donc, à priori être la meilleure, ce qui le rend dans braucoup de cas, plus performant que l'algorithme alpha-bêta, si ce dernier n'utilise pas de tables de transposition, chose qui était compliquée à faire dans le cas du jeu *Avalam*.  
+De manière pratique, il va donc, par une évaluation heuristique, donner une valeur à chaque noeud et seulement ensuite, il explorera chacun des noeuds par ordre d'importance.
+Dans notre cas, en raison des nombreux coups possibles dans le jeu Avalam, l'algorithme est très gourmand dès que l'on passe une profondeur de 3 (19s pour SSS(4) avec Cython, 165s sans Cython, pour le premier coup, avec 20 632 056 moves simulés). Nous avons donc décidé d'adapter la profondeur au fur et à mesure que le jeu avançait (lignes 103 à 115). En effet, au plus il y a de moves déjà faits, au moins il y a de cas à explorer, au plus l'algorithme va vite.  
+Cette profondeur faible nous a handicapés car étant donné que l'algorithme n'arrivait à atteindre des states, en début de partie, où le jeu était fini, il ne savait pas utiliser la fonction win et par conséquent notre fonction scoring ne savait pas donner des valeurs correctes à l'algorithme pour déterminer quelles branches étaient les plus favorables. Nous avons donc du nous même déterminer quelles actions étaient à privilégier en donnant des valeur à scoring() via la fonction wintower(), qui détermine si des tours sont capturées ou non (plus des tours sont capturées, plus le score fourni à scoring() est grand). Ces fonctions ont du être "Cythonisées" car elles baissaient nos performances de manière non-négligeable.   
+Pour résumer, en début de partie notre algorithme préfère capturer des tours assez rapidement quitte à ce que ce soint moins bénéfique sur le long terme, tandis que lorsque des states où le jeu se termine sont atteignables, l'algorithme va viser le fait de "gagner" (dont le scoring est plus grand que wintower()) et donc aura plus une vision long-terme (ce qui est peu utile en fin de partie, on le concède).
 
 ## Lancement du programme 
 ###  Installation du module Cython 
