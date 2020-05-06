@@ -7,7 +7,7 @@ import c_win_tower
 import c_is_alone
 from register import register
 from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax, SSS
-
+import random 
 register(3001)
 
 class Server:
@@ -116,14 +116,14 @@ class Server:
         game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
         #game.play(1)
         movelist = game.get_move()
-
+        messagelist = ["Ton IA va faire Aie","On va tellement te défoncer que tu vas finir sur Giteub","C'est une IA qui joue là ou c'est aléatoire ?","Tu feras mieux la prochaine fois"," T'aurais mieux fait d'étudier mécaflotte que de coder ça", "Souriez, vous êtes cernés", "Elle est où ma limonaaaaaaaade ?", "Cython AI marche pas, reviens l'année prochaine","On me dit à l'oreillette que t'auras pas les 2.5 bonus"]
         return {"move": {
             
         'from' : movelist[0],
         'to':    movelist[1]
         
         },
-        "message" : "Bien le bonjour"
+        "message" : messagelist[random.randintint(0, len(messagelist -1))]
         }
         
     @cherrypy.expose
