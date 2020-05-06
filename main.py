@@ -116,14 +116,19 @@ class Server:
         game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
         #game.play(1)
         movelist = game.get_move()
-        messagelist = ["Ton IA va faire Aie","On va tellement te défoncer que tu vas finir sur Giteub","C'est une IA qui joue là ou c'est aléatoire ?","Tu feras mieux la prochaine fois"," T'aurais mieux fait d'étudier mécaflotte que de coder ça", "Souriez, vous êtes cernés", "Elle est où ma limonaaaaaaaade ?", "Cython AI marche pas, reviens l'année prochaine","On me dit à l'oreillette que t'auras pas les 2.5 bonus"]
+        messagelist = ["Ton IA va faire aïe","On va tellement te défoncer que tu vas finir sur Giteub","C'est une IA qui joue là ou c'est aléatoire ?",
+        "Tu feras mieux la prochaine fois"," T'aurais mieux fait d'étudier mécaflotte que de coder ça", "Souriez, vous êtes cernés", "Elle est où ma limonaaaaaaaade ?", 
+        "Cython AI marche pas, reviens l'année prochaine","On me dit à l'oreillette que t'auras pas les 2.5 bonus","  J’adore l’odeur de la victoire au petit matin",
+        " Tu vois, le monde se divise en deux catégories: ceux qui ont une IA chargée et ceux qui creusent. Toi tu creuses.","Trois syllabes, huit lettres et un seul sens : T'as perdu.",
+        " Figurez-vous que votre IA n’est pas moche, elle n’a pas un physique facile… c’est différent.","C’est pas ton IA qui va voler nos jobs",
+        "C'est quand même bien mieux une IA propre, non ? À l'occasion, je vous mettrai un petit coup de polish.","23-0 ! C'est la piquette Jack !!! Tu sais pas jouer, Jack ! T'es mauvais hahahahaha !!!"]
         return {"move": {
             
         'from' : movelist[0],
         'to':    movelist[1]
         
         },
-        "message" : messagelist[random.randintint(0, len(messagelist -1))]
+        "message" : messagelist[random.randint(0, len(messagelist -1))]
         }
         
     @cherrypy.expose
