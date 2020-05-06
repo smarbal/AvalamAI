@@ -2,7 +2,7 @@
 par Sebastien Martinez Balbuena et Edouard de Schiettere de Lophem
 
 ## Contenu du répositoire 
-+  Le dossier AIGameRunner-master contient le server qui hébergera la partie. Celui-ci a été pris [ici](https://github.com/ECAM-Brussels/AIGameRunner).
++  Le dossier AIGameRunner-master contient le serveur qui hébergera la partie. Celui-ci a été pris [ici](https://github.com/ECAM-Brussels/AIGameRunner).
 + *inscription.json* contient les informations concernant nos matricules, noms et port utilisés.  
 + *main.py* contient le code principal, c'est à dire le serveur de l'ia.   
 + *register.py* contient la fonction afin d'inscrire notre serveur au gestionnaire de jeu. Cette fonction est lancée dans main.py  
