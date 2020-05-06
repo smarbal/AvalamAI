@@ -33,7 +33,8 @@ Néanmoins, tout est toujours perfectible, il faut bien s'arrêter à un moment 
 Nous utilisons la librairie [Cython](https://cython.org/) afin d'accélerer notre code. En effet, celui-ci s'exécute 6x plus rapidement lorsque nous avons "Cythonisé" nos fonctions les plus gourmandes. 
 Il faut dans un premier temps installer Cython :  
 `> pip install cython`  
-Si ce n'est pas déjà fait, il faudra ensuite installer les Buildtools C++ pour Visual Studio, [ici](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16),  afin de pouvoir "construire" les fichiers/fonctions nécesssaires. Même lorsque ces fichiers étaient dans le répositoire, pour une raison obscure, une machine téléchargeant ces fichiers devait reconstruire ceux-ci. 
+Si ce n'est pas déjà fait, il faudra ensuite installer les Buildtools C++ pour Visual Studio, [ici](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16),  afin de pouvoir "construire" les fichiers/fonctions nécesssaires. Même lorsque ces fichiers étaient dans le répositoire, pour une raison obscure, une machine téléchargeant ces fichiers devait reconstruire ceux-ci.  
+Lorsque le logiciel d'installation vous demandera quels modules installer, sélectionnez uniquement **C++ Build Tools**.
 
 Enfin, il faut lancer la ligne de commande qui construira les fichiers .c via Cython :  
 `> python setup.py install`
