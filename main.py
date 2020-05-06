@@ -118,10 +118,19 @@ class Server:
         movelist = game.get_move()
         messagelist = ["Ton IA va faire aïe","On va tellement te défoncer que tu vas finir sur Giteub","C'est une IA qui joue là ou c'est aléatoire ?",
         "Tu feras mieux la prochaine fois"," T'aurais mieux fait d'étudier mécaflotte que de coder ça", "Souriez, vous êtes cernés", "Elle est où ma limonaaaaaaaade ?", 
-        "Cython AI marche pas, reviens l'année prochaine","On me dit à l'oreillette que t'auras pas les 2.5 bonus","  J’adore l’odeur de la victoire au petit matin",
+        "Cython AI marche pas, reviens l'année prochaine","On me dit à l'oreillette que t'auras pas les 2.5 points bonus","  J’adore l’odeur de la victoire au petit matin",
         " Tu vois, le monde se divise en deux catégories: ceux qui ont une IA chargée et ceux qui creusent. Toi tu creuses.","Trois syllabes, huit lettres et un seul sens : T'as perdu.",
         " Figurez-vous que votre IA n’est pas moche, elle n’a pas un physique facile… c’est différent.","C’est pas ton IA qui va voler nos jobs",
-        "C'est quand même bien mieux une IA propre, non ? À l'occasion, je vous mettrai un petit coup de polish.","23-0 ! C'est la piquette Jack !!! Tu sais pas jouer, Jack ! T'es mauvais hahahahaha !!!"]
+        "C'est quand même bien mieux une IA propre, non ? À l'occasion, je vous mettrai un petit coup de polish.","23-0 ! C'est la piquette Jack !!! Tu sais pas jouer, Jack ! T'es mauvais hahahahaha !!!",
+        "On est en 1955 les gars, faut se réveiller. Les boucles for partout, ne pas utiliser Cython, l'écriture illisible, ça va hein ! S'agirait de grandir ! S'agirait de grandir...",
+        "Une défaite c'est quand les IA sont communistes, déjà. Qu'elles ont froid, avec des chapeaux gris et des chaussures à fermeture éclair. C'est ça, une défaite, Dolorès",
+        "Ça fait un peu Jacadi a dit : « Pas de bon move !","Chou blanc donc…","J'appelle ça l'IA, mademoiselle. Et pas n'importe laquelle ; l'IA du général de Gaulle.","Ou tu sors ou je te sors...","Je ne crois pas qu'il y ait de bonne ou de mauvaise IA...ah bah si, la tienne",
+        "Alors, on n'attend pas Patrick ?","Cassé !!!","J'ai glissé chef...","Les IA connes ça ose tout. C’est même à ça qu’on les reconnait",
+        "Une grande IA implique de grandes responsabilités","Faut arrêter ces conneries de nord et de sud ! Une fois pour toutes, le nord, suivant comment on est tourné, ça change tout !",
+        "Ah ! oui... j' l'ai fait trop fulgurant, là. Ça va ?","Une fois, à une exécution, je m'approche d'une fille. Pour rigoler, je lui fais : « Vous êtes de la famille de l'IA ? »... C'était sa sœur. Bonjour l'approche !","On en a gros !",
+        "PAYS DE GALLES INDÉPENDAAAAANT !","SI VOUS VOULEZ QU'ON SORTE LES PIEDS DEVANT, FAUDRA NOUS PASSER SUR L'COOOORPS !",
+        "Je vu ton IA une fois dans une carriole, tirée par un cheval. Enfin, la carriole tirée par un cheval.","Mais cherchez pas à faire des phrases pourries... On en a gros, c'est tout !","Vous, vous avez une idée derrière la main, j'en mettrais ma tête au feu!",
+        "Faut pas respirer la compote, ça fait tousser."," Et deux jus de pomme qui piquent !","Nouvelle technique : on passe pour des cons, les autres se marrent, et on frappe. C’est nouveau."]  #répliques librement inspirées d'OSS 117, Kaamelott, Rap Contenders,... et notre imagination. 
         return {"move": {
             
         'from' : movelist[0],
@@ -145,10 +154,7 @@ if __name__ == "__main__":
         port=int(sys.argv[1])
     else:
         port=8080
-    #cherrypy.quickstart(Server(),'', 'server.conf')
     cherrypy.config.update({'server.socket_host': '0.0.0.0', 'server.socket_port': port})
     cherrypy.quickstart(Server())
 
     
-     #adapter pour renvoyer le move vers le serveur
-    #à tester, l'avantage c'est que comme on joue du tour par tour, on va pouvoir adapter Negamax()
