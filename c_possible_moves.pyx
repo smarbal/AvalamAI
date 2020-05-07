@@ -22,7 +22,7 @@ cpdef list possible_moves(list body) :
                                     if c == d == 0 : 
                                         pass
                                     elif len(tower) + len(othertower) <= 5 : 
-                                        moves.append([[a,b],[a+c,b+d], len(tower)])  
-                                            # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour. exemple de move : [[0, 3], [0, 4]]
+                                        moves.append([[a,b],[a+c,b+d], len(tower)])   #ajout de len(tower) car il était impossible de déterminer un un_make move sans ça
+                                            # on ajoute aux moves possibles les coordonées de respectivement la première et deuxième tour. exemple de move : [[0, 3], [0, 4],[1]]
     return moves
     print(moves)

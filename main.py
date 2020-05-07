@@ -24,15 +24,15 @@ class Server:
 
         body = cherrypy.request.json
 
-        class Avalam(TwoPlayersGame):
+        class Avalam(TwoPlayersGame):   #permet de décrire la classe "jeu", tout ce qui servira à l'algorithme est ici 
             def __init__(self, players):
                 self.players = players
-                self.nplayer = 1    #si joueur 1 commence, à àméliorer si joueur 2 commence, à voir avec le fichier json 
+                self.nplayer = 1    
                 self.board = body['game']
                 self.playerwon = False
                 self.thegameisover = False
                 self.player.piece = body['players'].index('2 algos 1 cup')
-                if self.player.piece == 0 :
+                if self.player.piece == 0 :     # permet d'assigner quels pions appartiennent à notre joueur et à l'opposant
                     self.opponent.piece = 1
                 else : 
                     self.opponent.piece = 0
@@ -41,8 +41,8 @@ class Server:
     
 
 
-            def possible_moves(self):
-                moves = c_possible_moves.possible_moves(self.board)
+            def possible_moves(self):   #va déterminer tous les moves possibles. l'IA ne peut que faire des moves présents dans cette liste. Comme les règles sont bien établies, on est sûrs de jamais avoir de bad move
+                moves = c_possible_moves.possible_moves(self.board)     #aller voir le code de c_possible-moves.pyx pour voir comment la recherche se fait
                 self.thegameisover = moves == [] 
                 return moves
 
@@ -53,31 +53,31 @@ class Server:
                 self.board[move[1][0]][move[1][1]].extend(self.board[move[0][0]][move[0][1]]) #on verse ce qui se trouve dans la premiere tour dans la deuxieme
                 self.board[move[0][0]][move[0][1]].clear() #on vide la première tour
 
-            def unmake_move(self, move):
+            def unmake_move(self, move):   #sert à accélérer l'IA car permet de retrouver un état précédent en défaisant un move (plutôt qu'utiliser la mémoire). 
                 i = 0
                 cache = []
                 while i < move[2] :
-                    lastpiece = self.board[move[1][0]][move[1][1]].pop()     #checker, peut etre une erreur dans ces lignes 
+                    lastpiece = self.board[move[1][0]][move[1][1]].pop()    #on enlève le même nombre de pièces qui ont été déplacées par le move, 1 à 1, puis on inverse le sens de la liste pour retrouver l'état initial 
                     cache.append(lastpiece)
                     i += 1
                 cache.reverse()
                 self.board[move[0][0]][move[0][1]].extend(cache)
                 
 
-            def wintower(self) : 
+            def wintower(self) : #détermine combien de tours appatiennent à un joueur, sert pour la fonction scoring()
                 return c_win_tower.wintower(self.board, self.player.piece)  + c_is_alone.is_alone(self.board, self.player.piece)
 
 
 
-            def win(self):
+            def win(self):  #détermine le gagnant. L'IA optimise évidemment pour que player > opponent
                 if self.thegameisover is True : 
-                    self.player.list.clear()                        #sinon à chaque fois qu'il lance une possibilité, il rajoute dans la liste, qui a gardé les pions de la simulation précédente
+                    self.player.list.clear()                        #sinon à chaque fois qu'il simule une possibilité, il rajoute dans la liste de pions totale, qui a gardé les pions de la simulation précédente
                     self.opponent.list.clear()
                     for a in range(9): 
                         for b in range(9) :
                             tower = self.board[a][b]
                             if tower != [] :
-                                piece = tower[-1]     #avec pop il retire à chaque unmake move sur la fin vu qu'il lance la fonction 
+                                piece = tower[-1]     #avec pop il retire à chaque unmake move sur la fin vu qu'il lance la fonction pour faire la simulation, donc utilisaton du [-1] 
                                 if piece == self.player.piece : 
                                     self.player.list.append(piece)
                                 else : 
@@ -88,7 +88,7 @@ class Server:
                 return self.possible_moves() == []
                     
             
-            def scoring(self):
+            def scoring(self): #on donne ici les scores, pour qu'il prilégie l'une ou l'autre action, plus de détails dans le README 
                 if self.wintower() != 0 : 
                     return 3*self.wintower()
                 elif self.win() is True : 
@@ -96,11 +96,11 @@ class Server:
                 else : 
                     return 0 
                 
-            def show(self) :
+            def show(self) : #nous permet de voir le board quand on lance une partie (un peu inutile ici avec le serveur)
                 print(self.board) 
                 
      
-        if len(body['moves']) <= 25 :
+        if len(body['moves']) <= 25 :  #sert à déterminer la profondeur de recherche, SSS pourrait être remplacé par Negamax mais c'est moins performant
             ai_algo = SSS(3)
             ai_algo2 = SSS(3)
             
@@ -108,14 +108,14 @@ class Server:
             ai_algo = SSS(5)
             ai_algo2 = SSS(3)
         
-        if  40 < len(body['moves']) <= 120  :
+        if  40 < len(body['moves']) <= 150  :
             ai_algo = SSS(6)
             ai_algo2 = SSS(3)
 
 
-        game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])
+        game =  Avalam([AI_Player(ai_algo), AI_Player(ai_algo2)])    #dit que game est de classe Avalam et détermine les algorithmes à utiliser
         #game.play(1)
-        movelist = game.get_move()
+        movelist = game.get_move()   #permet de prendre en une liste le move fait.[[postion initiale],[position finale],[nombre de pions déplacés]]
         messagelist = ["Ton IA va faire aïe","On va tellement te défoncer que tu vas finir sur Giteub","C'est une IA qui joue là ou c'est aléatoire ?",
         "Tu feras mieux la prochaine fois"," T'aurais mieux fait d'étudier mécaflotte que de coder ça", "Souriez, vous êtes cernés", "Elle est où ma limonaaaaaaaade ?", 
         "Cython AI marche pas, reviens l'année prochaine","On me dit à l'oreillette que t'auras pas les 2.5 points bonus","  J’adore l’odeur de la victoire au petit matin",
