@@ -6,7 +6,7 @@ par Sebastien Martinez Balbuena et Edouard de Schiettere de Lophem
 + *inscription.json* contient les informations concernant nos matricules, noms et port utilisés.  
 + *main.py* contient le code principal, c'est à dire le serveur de l'ia.   
 + *register.py* contient la fonction afin d'inscrire notre serveur au gestionnaire de jeu. Cette fonction est lancée dans main.py  
-+ Les fichiers *.pyx* sont des fichiers contenant des fonctions Python qui prennent beacoup de temps à l'exécution, à cause de nombreuses boucles for. Comme le language C gère ce genre de cas de manière bien plus optimale, ces fichiers seront "Cythonisés". 
+
 
 ## Méthode choisie pour l'IA 
 Nous avons utilisé [EasyAI](https://zulko.github.io/easyAI/) afin de mettre en place l'algorithme [SSS*](https://en.wikipedia.org/wiki/SSS*). Celui-ci est, grossièrement, une version d'un algorithme Negamax avec élagage Alpha-Beta, où l'élagage se fait de manière bien plus drastique.    
