@@ -137,7 +137,7 @@ class Server:
         'to':    movelist[1]
         
         },
-        "message" : messagelist[random.randint(0, len(messagelist -1))]
+        "message" : messagelist[random.randint(0, len(messagelist)-1)]
         }
         
     @cherrypy.expose
