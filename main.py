@@ -10,21 +10,7 @@ from easyAI import TwoPlayersGame, Human_Player, AI_Player, Negamax, SSS
 import random 
 register(3001)
 
-class Server:
-    @cherrypy.expose
-    @cherrypy.tools.json_in()
-    @cherrypy.tools.json_out()
-    def move(self):
-        # Deal with CORS
-        cherrypy.response.headers['Access-Control-Allow-Origin'] = '*'
-        cherrypy.response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-        cherrypy.response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
-        if cherrypy.request.method == "OPTIONS":
-            return ''
-
-        body = cherrypy.request.json
-
-        class Avalam(TwoPlayersGame):   #permet de décrire la classe "jeu", tout ce qui servira à l'algorithme est ici 
+class Avalam(TwoPlayersGame):   #permet de décrire la classe "jeu", tout ce qui servira à l'algorithme est ici 
             def __init__(self, players):
                 self.players = players
                 self.nplayer = 1    
@@ -98,6 +84,22 @@ class Server:
                 
             def show(self) : #nous permet de voir le board quand on lance une partie (un peu inutile ici avec le serveur)
                 print(self.board) 
+
+class Server:
+    @cherrypy.expose
+    @cherrypy.tools.json_in()
+    @cherrypy.tools.json_out()
+    def move(self):
+        # Deal with CORS
+        cherrypy.response.headers['Access-Control-Allow-Origin'] = '*'
+        cherrypy.response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        cherrypy.response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
+        if cherrypy.request.method == "OPTIONS":
+            return ''
+
+        body = cherrypy.request.json
+
+        
                 
      
         if len(body['moves']) <= 25 :  #sert à déterminer la profondeur de recherche, SSS pourrait être remplacé par Negamax mais c'est moins performant
