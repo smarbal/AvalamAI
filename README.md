@@ -1,5 +1,4 @@
 # Avalam AI
-par Sebastien Martinez Balbuena (18360) et Edouard de Schiettere de Lophem (18072)
 
 ## Contenu du répositoire 
 +  Le dossier AIGameRunner-master contient le serveur qui hébergera la partie. Celui-ci a été pris [ici](https://github.com/ECAM-Brussels/AIGameRunner).
